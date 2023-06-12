@@ -1,12 +1,12 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.List;
+import java.awt.GridLayout;
+import pacman.Pacman;
 
 public class LoginScreen extends JFrame {
-    private JTextField usernameField;
-    private JPasswordField passwordField;
+    protected JTextField usernameField;
+    protected JPasswordField passwordField;
     private CSVReader csvReader;
+    private LoginValidator loginValidator;
 
     public LoginScreen() {
         setTitle("Login");
@@ -24,24 +24,11 @@ public class LoginScreen extends JFrame {
         JButton loginButton = new JButton("Login");
         JButton cancelButton = new JButton("Cancel");
 
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+        csvReader = new CSVReader("src/public/csv/data.csv", ",");
+        loginValidator = new LoginValidator(csvReader);
 
-                if (validateLogin(username, password)) {
-                    JOptionPane.showMessageDialog(LoginScreen.this, "Login Successful!");
-                } else {
-                    JOptionPane.showMessageDialog(LoginScreen.this, "Invalid username or password.");
-                }
-            }
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        loginButton.addActionListener(new LoginButtonListener(this, loginValidator));
+        cancelButton.addActionListener(new CancelButtonListener());
 
         add(usernameLabel);
         add(usernameField);
@@ -49,20 +36,12 @@ public class LoginScreen extends JFrame {
         add(passwordField);
         add(loginButton);
         add(cancelButton);
-
-        csvReader = new CSVReader("src/data.csv", ",");
     }
 
-    private boolean validateLogin(String username, String password) {
-        List<String[]> data = csvReader.read();
-
-        for (String[] row : data) {
-            if (row.length >= 2 && row[0].equals(username) && row[1].equals(password)) {
-                return true;
-            }
-        }
-
-        return false;
+    public void openPacman() {
+        Pacman pacman = new Pacman();
+        pacman.setVisible(true);
+        pacman.setLocationRelativeTo(null);
     }
 
     public static void main(String[] args) {
