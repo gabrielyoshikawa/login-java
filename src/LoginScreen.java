@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.GridLayout;
-import pacman.Pacman;
+// import yourFile;
 
 public class LoginScreen extends JFrame {
     protected JTextField usernameField;
@@ -38,11 +38,11 @@ public class LoginScreen extends JFrame {
         add(cancelButton);
     }
 
-    public void openPacman() {
-        Pacman pacman = new Pacman();
-        pacman.setVisible(true);
-        pacman.setLocationRelativeTo(null);
-    }
+    // public void openFile() {
+    //     Window window = new window();
+    //     window.setVisible(true);
+    //     window.setLocationRelativeTo(null);
+    // }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

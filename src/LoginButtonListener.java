@@ -17,7 +17,7 @@ public class LoginButtonListener implements ActionListener {
 
         try {
             if (loginValidator.validateLogin(username, password)) {
-                loginScreen.openPacman();
+                // loginScreen.openFile();
                 loginScreen.dispose();
             } else {
                 JOptionPane.showMessageDialog(loginScreen, "Invalid username or password.");
